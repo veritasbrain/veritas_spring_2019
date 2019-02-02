@@ -41,8 +41,8 @@ logger.setLevel(logging.INFO)
 
 ses = boto3.client('ses')
 ################## create a variable 'email_address' with email address you want to send msg.
-# email_address = 
-
+#email_address = ''
+#to_email_address = ''
 
 # Check whether email is verified. Only verified emails are allowed to send emails to or from.
 def check_email(email):
@@ -64,14 +64,14 @@ def lambda_handler(event, context):
         return
     ################## create a variable 'subject' of email.
     # subject = 'Hello from your IoT button %s' % event['serialNumber']
+
     ################## create a variable 'body_text' of email.
     # body_text = 'Hello from your IoT Button %s. Here is the full event: %s' % (event['serialNumber'], json.dumps(event))
-    
+
     response = ses.send_email(Source=email_address,
-                   Destination={'ToAddresses': [email_address]},
+                   Destination={'ToAddresses': [to_email_address]},
                    Message={'Subject': {'Data': subject}, 'Body': {'Text': {'Data': body_text}}})
     logger.info('Email has been sent')
     print(response)
     logger.info(response)
     
-
